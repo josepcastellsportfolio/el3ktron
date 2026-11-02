@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Jobs\SyncCatalog;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+// The ERP export is refreshed every 15 minutes; the job is unique, so a slow run never overlaps the next.
+Schedule::job(new SyncCatalog)->everyFifteenMinutes();
+
+// Independent of the job: catches the sync that silently stopped running.
+Schedule::command('el3ktron:check-sync-freshness')->everyFiveMinutes();

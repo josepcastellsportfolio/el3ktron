@@ -1,0 +1,4 @@
+referencia;cantidad
+E3-00200;12
+E3-00201;4
+E3-00315;30

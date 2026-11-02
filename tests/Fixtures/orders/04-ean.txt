@@ -1,0 +1,3 @@
+Pedido tienda FD-02
+8412345000017 cantidad: 6
+8412345000024 cantidad: 15
