@@ -11,7 +11,7 @@ que recorre el almacén y pedidos que llegan escritos por personas.
 |---|---|
 | Stack | PHP 8.4, Laravel 13, MariaDB 11, RabbitMQ 4, nginx + PHP-FPM, Docker |
 | API | REST v1 con tokens Sanctum, OpenAPI generado con Scramble ([`docs/openapi.json`](docs/openapi.json)) |
-| Calidad | 41 tests Pest (SQLite en local, MariaDB en CI), Larastan nivel 6, Pint, CI en GitHub Actions |
+| Calidad | 42 tests Pest (SQLite en local, MariaDB en CI), Larastan nivel 6, Pint, CI en GitHub Actions |
 
 ## Qué resuelve, y cuánto
 
