@@ -4,6 +4,8 @@
 #   docker compose exec app php artisan migrate --seed   (prints an API token)
 x-app: &app
   build: .
+  # The worker and the scheduler start before the first migration; they retry until the tables exist.
+  restart: unless-stopped
   env_file: .env
   depends_on:
     mariadb: { condition: service_healthy }

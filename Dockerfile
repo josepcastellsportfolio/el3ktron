@@ -14,4 +14,6 @@ RUN apk add --no-cache icu-libs libzip \
 COPY docker/php.ini /usr/local/etc/php/conf.d/el3ktron.ini
 WORKDIR /var/www/html
 COPY --from=vendor --chown=www-data:www-data /app /var/www/html
+# The ERP export volume mounts here; created now so the volume is owned by www-data.
+RUN mkdir -p storage/app/erp && chown -R www-data:www-data storage bootstrap/cache
 USER www-data

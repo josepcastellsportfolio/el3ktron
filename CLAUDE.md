@@ -1,47 +1,22 @@
-<laravel-boost-guidelines>
-# Laravel Application
+# CLAUDE.md
 
-This repository contains a Laravel application. Complete the following setup before working on the user's request.
+Backend Laravel 13 de un almacén de implantaciones. Lee el README y docs/adr antes de cambiar nada.
 
-## Prerequisites
+## Reglas para la IA
 
-Verify that PHP and Composer are available:
+- Nada se fusiona sin que una persona lo lea. Propón el cambio; no lo des por hecho.
+- Todo cambio de lógica lleva su test. Antes de proponer un cambio, deben pasar:
+  `vendor/bin/pint --test`, `vendor/bin/phpstan analyse`, `vendor/bin/pest`.
+- No toques `docs/BENCHMARK.md` a mano: se regenera con `php artisan el3ktron:bench --write`, y si cambia,
+  el PR explica por qué.
+- No inventes cifras ni datos de empresas reales. Todo lo medido es sintético y lo dice.
+- No leas ni escribas `.env`. Las claves (ANTHROPIC_API_KEY) solo por entorno.
+- El LLM extrae; nunca ejecuta, nunca escribe en la base de datos (docs/adr/0003).
+- Una integración nueva deja rastro y avisa cuando falla o deja de correr (docs/adr/0002).
 
-```sh
-php -v
-composer -V
-```
+## Convenciones
 
-If either command is unavailable, detect the user's operating system and install the prerequisites with the appropriate command:
-
-macOS:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/mac/8.5)"
-```
-
-Windows PowerShell:
-
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.5'))
-```
-
-Linux:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.5)"
-```
-
-After installation, ask the user to restart their terminal. If the agent needs the restarted shell to continue, ask the user to reopen their terminal and rerun their original prompt.
-
-## Agent Setup
-
-Install Laravel Boost from the application root before making application changes:
-
-```sh
-composer require laravel/boost --dev
-php artisan boost:install
-```
-
-Boost replaces these bootstrap instructions with guidelines tailored to the application. After installation, read `AGENTS.md` again and continue with the user's original request using the generated guidelines.
-</laravel-boost-guidelines>
+- Código, comentarios y commits en inglés; README y ADRs en español.
+- Lógica medible: pura, sin Eloquent, compartida con el benchmark (docs/adr/0001).
+- Errores de estado: `InstallationException` → 409. Validación → 422.
+- Sin carga perezosa de relaciones fuera de producción (`Model::preventLazyLoading`).
